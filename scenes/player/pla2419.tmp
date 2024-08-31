@@ -1,0 +1,63 @@
+[gd_scene load_steps=5 format=3 uid="uid://dcpb75k6bgpr2"]
+
+[ext_resource type="Script" path="res://scenes/player/player.gd" id="1_hxqdm"]
+[ext_resource type="PackedScene" uid="uid://d0vtwimlps4c4" path="res://scenes/player/handl.glb" id="1_nwmye"]
+[ext_resource type="PackedScene" uid="uid://bxw2i1r3rwad7" path="res://scenes/player/handr.glb" id="2_q8ayr"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_pt72o"]
+radius = 2.0
+
+[node name="player" type="Node3D"]
+script = ExtResource("1_hxqdm")
+
+[node name="handl" parent="." instance=ExtResource("1_nwmye")]
+transform = Transform3D(0.193185, -0.0258819, 0.0448288, 0, 0.173205, 0.1, -0.0517638, -0.0965926, 0.167303, 0.15, 0, 0.4)
+
+[node name="Skeleton3D" parent="handl/handl" index="0"]
+bones/0/rotation = Quaternion(-1.10986e-07, 1.10986e-07, 0.707107, 0.707107)
+bones/1/rotation = Quaternion(1.64751e-07, -2.48394e-07, -0.53877, 0.842453)
+bones/2/rotation = Quaternion(3.43377e-15, 3.08113e-15, -0.240887, 0.970553)
+bones/3/rotation = Quaternion(-3.68438e-15, -1.8069e-15, -0.183086, 0.983097)
+bones/4/rotation = Quaternion(0.184241, 0.0801284, -0.390693, 0.898328)
+bones/5/rotation = Quaternion(3.11298e-09, -5.7985e-09, -0.503814, 0.863812)
+bones/6/rotation = Quaternion(-9.05895e-10, -1.10469e-08, -0.192894, 0.98122)
+bones/7/rotation = Quaternion(0.343649, 0.188038, -0.441656, 0.807147)
+bones/8/scale = Vector3(1, 1, 1)
+
+[node name="AnimationPlayer" parent="handl" index="1"]
+autoplay = "open_l"
+
+[node name="grab" type="Area3D" parent="handl"]
+transform = Transform3D(1, -2.98023e-08, 0, 1.49012e-08, 1, -5.96046e-08, 4.47035e-08, -8.9407e-08, 1, -1, 0, 0)
+
+[node name="shape" type="CollisionShape3D" parent="handl/grab"]
+shape = SubResource("SphereShape3D_pt72o")
+
+[node name="handr" parent="." instance=ExtResource("2_q8ayr")]
+transform = Transform3D(0.193185, -0.0258819, -0.0448288, 0, 0.173205, -0.1, 0.0517638, 0.0965926, 0.167303, 0.15, 0, -0.4)
+
+[node name="Skeleton3D" parent="handr/handr" index="0"]
+bones/0/rotation = Quaternion(-1.10986e-07, 1.10986e-07, 0.707107, 0.707107)
+bones/1/rotation = Quaternion(0.0274244, -1.78747e-07, -6.10262e-09, 0.999624)
+bones/2/rotation = Quaternion(-2.62955e-10, 5.47618e-11, -0.0540411, 0.998539)
+bones/4/rotation = Quaternion(-0.0123623, 0.000583056, 0.0471227, 0.998812)
+bones/5/rotation = Quaternion(5.75459e-11, 4.32206e-11, -0.0787486, 0.996895)
+bones/7/rotation = Quaternion(-0.392776, -2.55026e-07, 1.96783e-08, 0.919634)
+bones/8/rotation = Quaternion(0.27409, 0.021489, -0.0751492, 0.958523)
+bones/8/scale = Vector3(1, 1, 1)
+bones/9/rotation = Quaternion(1.77721e-07, 1.75186e-08, -0.0802432, 0.996775)
+
+[node name="AnimationPlayer" parent="handr" index="1"]
+autoplay = "open_r"
+
+[node name="grab" type="Area3D" parent="handr"]
+transform = Transform3D(1, -2.98023e-08, 0, 1.49012e-08, 1, -5.96046e-08, 4.47035e-08, -8.9407e-08, 1, -1, 0, 0)
+
+[node name="shape" type="CollisionShape3D" parent="handr/grab"]
+shape = SubResource("SphereShape3D_pt72o")
+
+[node name="cam" type="Camera3D" parent="."]
+transform = Transform3D(-4.37114e-08, -0.5, -0.866025, 0, 0.866025, -0.5, 1, -2.18557e-08, -3.78552e-08, -3, 0.1, 0)
+
+[editable path="handl"]
+[editable path="handr"]

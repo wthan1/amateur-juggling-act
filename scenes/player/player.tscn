@@ -1,0 +1,113 @@
+[gd_scene load_steps=7 format=3 uid="uid://dcpb75k6bgpr2"]
+
+[ext_resource type="Script" path="res://scenes/player/player.gd" id="1_hxqdm"]
+[ext_resource type="PackedScene" uid="uid://d0vtwimlps4c4" path="res://scenes/player/handl.glb" id="1_nwmye"]
+[ext_resource type="PackedScene" uid="uid://bxw2i1r3rwad7" path="res://scenes/player/handr.glb" id="2_q8ayr"]
+[ext_resource type="Texture2D" uid="uid://du8jt01m0if3o" path="res://scenes/player/eye.png" id="4_cpaad"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_pt72o"]
+radius = 2.0
+
+[sub_resource type="FontVariation" id="FontVariation_15e41"]
+variation_embolden = 0.6
+
+[node name="player" type="Node3D"]
+script = ExtResource("1_hxqdm")
+
+[node name="handl" parent="." instance=ExtResource("1_nwmye")]
+transform = Transform3D(0.193185, -0.0258819, 0.0448288, 0, 0.173205, 0.1, -0.0517638, -0.0965926, 0.167303, 0.15, 0, 0.4)
+
+[node name="Skeleton3D" parent="handl/handl" index="0"]
+bones/0/rotation = Quaternion(-1.10986e-07, 1.10986e-07, 0.707107, 0.707107)
+bones/1/rotation = Quaternion(1.64751e-07, -2.48394e-07, -0.53877, 0.842453)
+bones/2/rotation = Quaternion(3.43377e-15, 3.08113e-15, -0.240887, 0.970553)
+bones/3/rotation = Quaternion(-3.68438e-15, -1.8069e-15, -0.183086, 0.983097)
+bones/4/rotation = Quaternion(0.184241, 0.0801284, -0.390693, 0.898328)
+bones/5/rotation = Quaternion(3.11298e-09, -5.7985e-09, -0.503814, 0.863812)
+bones/6/rotation = Quaternion(-9.05895e-10, -1.10469e-08, -0.192894, 0.98122)
+bones/7/rotation = Quaternion(0.343649, 0.188038, -0.441656, 0.807147)
+
+[node name="AnimationPlayer" parent="handl" index="1"]
+autoplay = "open_l"
+
+[node name="grab" type="Area3D" parent="handl"]
+transform = Transform3D(1, -2.98023e-08, 0, 1.49012e-08, 1, -5.96046e-08, 4.47035e-08, -8.9407e-08, 1, -1, 0, 0)
+
+[node name="shape" type="CollisionShape3D" parent="handl/grab"]
+shape = SubResource("SphereShape3D_pt72o")
+
+[node name="handr" parent="." instance=ExtResource("2_q8ayr")]
+transform = Transform3D(0.193185, -0.0258819, -0.0448288, 0, 0.173205, -0.1, 0.0517638, 0.0965926, 0.167303, 0.15, 0, -0.4)
+
+[node name="Skeleton3D" parent="handr/handr" index="0"]
+bones/0/rotation = Quaternion(-1.10986e-07, 1.10986e-07, 0.707107, 0.707107)
+bones/1/rotation = Quaternion(0.0274244, -1.78747e-07, -6.10262e-09, 0.999624)
+bones/2/rotation = Quaternion(-2.62955e-10, 5.47618e-11, -0.0540411, 0.998539)
+bones/4/rotation = Quaternion(-0.0123623, 0.000583056, 0.0471227, 0.998812)
+bones/5/rotation = Quaternion(5.75459e-11, 4.32206e-11, -0.0787486, 0.996895)
+bones/7/rotation = Quaternion(-0.392776, -2.55026e-07, 1.96783e-08, 0.919634)
+bones/8/rotation = Quaternion(0.27409, 0.021489, -0.0751492, 0.958523)
+bones/9/rotation = Quaternion(1.77721e-07, 1.75186e-08, -0.0802432, 0.996775)
+
+[node name="AnimationPlayer" parent="handr" index="1"]
+autoplay = "open_r"
+
+[node name="grab" type="Area3D" parent="handr"]
+transform = Transform3D(1, -2.98023e-08, 0, 1.49012e-08, 1, -5.96046e-08, 4.47035e-08, -8.9407e-08, 1, -1, 0, 0)
+
+[node name="shape" type="CollisionShape3D" parent="handr/grab"]
+shape = SubResource("SphereShape3D_pt72o")
+
+[node name="head" type="Node3D" parent="."]
+
+[node name="eyer" type="Sprite3D" parent="head"]
+transform = Transform3D(-1.31134e-08, 0, 0.3, 0, 0.3, 0, -0.3, 0, -1.31134e-08, 1, 0, -0.25)
+modulate = Color(1, 1, 0.690196, 1)
+texture_filter = 0
+texture = ExtResource("4_cpaad")
+
+[node name="pupil" type="Sprite3D" parent="head/eyer"]
+transform = Transform3D(-2.18557e-08, -0.3, -2.18557e-08, 0.5, -1.31134e-08, 2.18557e-08, -2.18557e-08, -1.31134e-08, 0.5, 0, 0, 0)
+sorting_offset = 1.0
+modulate = Color(0, 0, 0, 1)
+texture_filter = 0
+texture = ExtResource("4_cpaad")
+
+[node name="eyel" type="Sprite3D" parent="head"]
+transform = Transform3D(-1.31134e-08, 0, 0.3, 0, 0.3, 0, -0.3, 0, -1.31134e-08, 1, 0, 0.25)
+modulate = Color(1, 1, 0.690196, 1)
+texture_filter = 0
+texture = ExtResource("4_cpaad")
+
+[node name="pupil" type="Sprite3D" parent="head/eyel"]
+transform = Transform3D(-2.18557e-08, -0.3, -2.18557e-08, 0.5, -1.31134e-08, 2.18557e-08, -2.18557e-08, -1.31134e-08, 0.5, 0, 0, 0)
+sorting_offset = 1.0
+modulate = Color(0, 0, 0, 1)
+texture_filter = 0
+texture = ExtResource("4_cpaad")
+
+[node name="high" type="RichTextLabel" parent="."]
+offset_left = 4.0
+offset_top = 959.0
+offset_right = 716.0
+offset_bottom = 1023.0
+theme_override_colors/default_color = Color(0.162066, 0.162066, 0.162066, 1)
+theme_override_fonts/normal_font = SubResource("FontVariation_15e41")
+theme_override_font_sizes/normal_font_size = 23
+bbcode_enabled = true
+text = "[right](HIGH: 0)[/right]"
+scroll_active = false
+
+[node name="catches" type="RichTextLabel" parent="."]
+offset_left = 9.0
+offset_top = 960.0
+offset_right = 734.0
+offset_bottom = 1024.0
+theme_override_colors/default_color = Color(0.162066, 0.162066, 0.162066, 1)
+theme_override_fonts/normal_font = SubResource("FontVariation_15e41")
+theme_override_font_sizes/normal_font_size = 46
+text = "CATCHES: 0"
+scroll_active = false
+
+[editable path="handl"]
+[editable path="handr"]

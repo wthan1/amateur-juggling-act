@@ -1,0 +1,79 @@
+[gd_scene load_steps=9 format=3 uid="uid://bkj4gt4ssvo72"]
+
+[ext_resource type="Script" path="res://scenes/level/level.gd" id="1_5ysgr"]
+[ext_resource type="PackedScene" uid="uid://dcpb75k6bgpr2" path="res://scenes/player/player.tscn" id="1_c13cw"]
+[ext_resource type="PackedScene" uid="uid://dklocfoo3aoxw" path="res://scenes/ball/ball.tscn" id="2_cwoga"]
+[ext_resource type="PackedScene" uid="uid://cvk8fuhdj34sp" path="res://scenes/menu/menu.tscn" id="3_7vssh"]
+[ext_resource type="PackedScene" uid="uid://b75t0vnv3p7br" path="res://scenes/level/stage.glb" id="4_ebj57"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_y7kvt"]
+size = Vector3(1, 5, 1)
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_o0gau"]
+
+[sub_resource type="Environment" id="Environment_16fil"]
+ssao_enabled = true
+sdfgi_read_sky_light = false
+glow_enabled = true
+glow_levels/1 = 16.0
+glow_levels/3 = 0.0
+glow_normalized = true
+glow_mix = 0.464
+glow_bloom = 0.95
+glow_blend_mode = 0
+fog_light_color = Color(0, 0, 0, 1)
+volumetric_fog_density = 0.6464
+volumetric_fog_albedo = Color(0, 0, 0, 1)
+
+[node name="level" type="Node3D"]
+script = ExtResource("1_5ysgr")
+
+[node name="player" parent="." instance=ExtResource("1_c13cw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 1.4, 0)
+
+[node name="menu" parent="." instance=ExtResource("3_7vssh")]
+offset_left = -720.0
+offset_right = -720.0
+
+[node name="col" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="col"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, -3)
+shape = SubResource("BoxShape3D_y7kvt")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="col"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 3)
+shape = SubResource("BoxShape3D_y7kvt")
+
+[node name="delete" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="delete"]
+shape = SubResource("WorldBoundaryShape3D_o0gau")
+
+[node name="ball" parent="." instance=ExtResource("2_cwoga")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.68375, 0.2)
+
+[node name="ball2" parent="." instance=ExtResource("2_cwoga")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.18375, 0.2)
+
+[node name="ball3" parent="." instance=ExtResource("2_cwoga")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.68375, 0.2)
+
+[node name="stage" parent="." instance=ExtResource("4_ebj57")]
+transform = Transform3D(-1.09278e-07, 0, -2.5, 0, 2.5, 0, 2.5, 0, -1.09278e-07, -3.439, 0, 0)
+
+[node name="Camera3D" type="Camera3D" parent="stage"]
+transform = Transform3D(0.4, -4.44089e-16, 0, 0, 0.38637, 0.103528, 0, -0.103528, 0.38637, 0, 0.9, 0.3)
+fov = 90.0
+
+[node name="OmniLight3D" type="OmniLight3D" parent="stage"]
+transform = Transform3D(-1.74845e-08, 0, 0.4, 0, 0.4, 0, -0.4, 0, -1.74845e-08, 1.77783e-07, 1.84107, -0.2963)
+light_energy = 0.1
+shadow_enabled = true
+omni_range = 6.0
+
+[node name="world" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_16fil")
+
+[connection signal="body_entered" from="delete" to="." method="_on_delete_body_entered"]

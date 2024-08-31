@@ -1,0 +1,66 @@
+[gd_scene load_steps=15 format=3 uid="uid://dklocfoo3aoxw"]
+
+[ext_resource type="Script" path="res://scenes/ball/ball.gd" id="1_u5e2r"]
+[ext_resource type="AudioStream" uid="uid://pfphj8isc5gh" path="res://scenes/ball/sounds/catch1.wav" id="2_1n0lw"]
+[ext_resource type="AudioStream" uid="uid://bljyhcbhhiokg" path="res://scenes/ball/sounds/fall1.wav" id="2_jqcdq"]
+[ext_resource type="AudioStream" uid="uid://blrtsmflmaebv" path="res://scenes/ball/sounds/fall2.wav" id="3_upha8"]
+[ext_resource type="AudioStream" uid="uid://dvb47j1swm6pa" path="res://scenes/ball/sounds/fall3.wav" id="4_40eev"]
+[ext_resource type="AudioStream" uid="uid://d4g042etbk6q" path="res://scenes/ball/sounds/throw1.wav" id="4_poocq"]
+[ext_resource type="AudioStream" uid="uid://id1sejlq86jw" path="res://scenes/ball/sounds/catch3.wav" id="4_qkx7r"]
+[ext_resource type="AudioStream" uid="uid://pprj8pf56abn" path="res://scenes/ball/sounds/throw2.wav" id="5_qkx47"]
+[ext_resource type="AudioStream" uid="uid://bxhublhfne4op" path="res://scenes/ball/sounds/throw3.wav" id="6_ialga"]
+[ext_resource type="PackedScene" uid="uid://bb0385dc1lhbq" path="res://scenes/ball/ball.glb" id="10_3voj3"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_tq2q3"]
+radius = 0.15
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_f3psr"]
+playback_mode = 1
+random_pitch = 1.2
+streams_count = 2
+stream_0/stream = ExtResource("2_1n0lw")
+stream_0/weight = 1.0
+stream_1/stream = ExtResource("4_qkx7r")
+stream_1/weight = 1.0
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_w5yf2"]
+playback_mode = 1
+random_pitch = 1.2
+streams_count = 3
+stream_0/stream = ExtResource("4_poocq")
+stream_0/weight = 1.0
+stream_1/stream = ExtResource("5_qkx47")
+stream_1/weight = 1.0
+stream_2/stream = ExtResource("6_ialga")
+stream_2/weight = 1.0
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_cqn5l"]
+playback_mode = 1
+random_pitch = 1.2
+streams_count = 3
+stream_0/stream = ExtResource("2_jqcdq")
+stream_0/weight = 1.0
+stream_1/stream = ExtResource("3_upha8")
+stream_1/weight = 1.0
+stream_2/stream = ExtResource("4_40eev")
+stream_2/weight = 1.0
+
+[node name="ball" type="CharacterBody3D"]
+script = ExtResource("1_u5e2r")
+
+[node name="shape" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_tq2q3")
+
+[node name="catch" type="AudioStreamPlayer3D" parent="."]
+stream = SubResource("AudioStreamRandomizer_f3psr")
+
+[node name="throw" type="AudioStreamPlayer3D" parent="."]
+stream = SubResource("AudioStreamRandomizer_w5yf2")
+volume_db = -10.0
+
+[node name="fall" type="AudioStreamPlayer3D" parent="."]
+stream = SubResource("AudioStreamRandomizer_cqn5l")
+
+[node name="mesh" parent="." instance=ExtResource("10_3voj3")]
+
+[editable path="mesh"]
